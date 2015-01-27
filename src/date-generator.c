@@ -10,7 +10,7 @@
 #include <probe.h>
 #include <random-generator.h>  
 
-/**
+/** TESSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSST
  * @brief Implantation des générateurs de dates.
  *
  * Largement fondé sur les générateurs de nombres aléatoires.
