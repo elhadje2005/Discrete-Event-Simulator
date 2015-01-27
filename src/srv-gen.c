@@ -16,7 +16,11 @@
 #include <log.h>
 
 #include <stdlib.h>    // Malloc, NULL, exit...
-
+/**
+ * @brief Objet representant les etats du serveurs
+ * @param srvStateIdle état inactif
+ * @param srvState état occupé
+*/
 enum srvState_t {
   srvStateIdle,
   srvStateBusy
