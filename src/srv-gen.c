@@ -28,6 +28,17 @@ enum srvState_t {
 
 /** 
  * @brief Définition d'un serveur générique
+ * @param srvState_t état du serveur
+ * @param currentPDU le PDU qui est servi (file d'attente servie car possible d'avoir plusieurs files d'attentes)
+ * @param serviceStartTime instant de début de service
+ * @dateGenerator_t générateur de date
+ * @param serviceTime_t modèle aléatoire, temps de service
+ * @param serviceTimeParameter paramètre du modèle aléatoire
+ * @param destination L'objet auquel sont destinées les PDUs
+ * @param destProcessPDU La fonction permettant d'envoyer la PDU
+ * @param source L'objet suceptible de nous fournir une PDU
+ * @param getPDU La méthode d'obtentition de cette PDU
+ * @param serviceProbe sonde permettant de mesurer le temps de service sur le serveur
  */
 struct srvGen_t {
    declareAsNdesObject; //< C'est un ndesObject 
