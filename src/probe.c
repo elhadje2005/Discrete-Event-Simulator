@@ -38,7 +38,7 @@ struct sampleSet_t {
 };
 
 /*
- * Structure permettant la gestion des sondes graphBar
+ * @brief Structure permettant la gestion des sondes graphBar
  */
 struct graphBar_t {
    double          min;
@@ -49,7 +49,7 @@ struct graphBar_t {
 };
 
 /*
- * Structure permettant la gestion des sondes de moyenne
+ * @brief Structure permettant la gestion des sondes de moyenne
  */
 struct mean_t {
    double valueSum;  // La somme cumulée des échantillons
@@ -1510,7 +1510,7 @@ void probe_exhaustiveToBlockMean(struct probe_t * ep, struct probe_t * bmp, unsi
       if ((n+1) % PROBE_NB_SAMPLES_MAX == 0) {
 	set = set->next;//printf("*** %d -> fin de set\n", n);
       }
-      // Si on a assez d'échantillons, on stoque la moyenne
+      // Si on a assez d'échantillons, on stock la moyenne
       if ((n+1) % blockSize == 0) {
 	//printf("*** %d -> On sample\n", n);
          probe_sample(bmp, sum/(double)blockSize);
