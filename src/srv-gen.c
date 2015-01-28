@@ -79,8 +79,12 @@ struct ndesObjectType_t srvGenType = {
    ndesObjectTypeDefaultValues(srvGen)
 };
 
-/*
- * Creation et initialisation d'un serveur
+/**
+ * @fn srvGen_t * srvGen_create( void * destination, processPDU_t destProcessPDU
+ * @biref Creation et initialisation d'un serveur
+ * @param destination L'objet auquel sont destinées les PDUs
+ * @param destProcessPDU La fonction permettant d'envoyer la PDU
+ * @return retourne un pointeur vers une structure de type srvGen_t (serveur générique)
  */
 struct srvGen_t * srvGen_create(void * destination,
                                 processPDU_t destProcessPDU)
@@ -108,7 +112,12 @@ struct srvGen_t * srvGen_create(void * destination,
    return result;
 }
 
-
+/**
+ * @fn srvGen_terminateProcess(struct srvGen_t * srv)
+ * @brief termine l'activité du serveur
+ * @param srv serveur generique à termine
+ * @return retourne 'void'
+*/
 void srvGen_terminateProcess(struct srvGen_t * srv);
 /*
  * Début de traitement d'une PDU
