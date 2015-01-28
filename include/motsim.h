@@ -37,65 +37,101 @@ struct event_t;
 
 extern struct motsim_t * __motSim;
 
-/*
- * Initialisation du système
+/**
+ * @fun void motSim_create();
+ * @brief Initialisation du système
+ * @result le moteur est initialisé
  */
 void motSim_create(); 
 
-/*
- * A la fin d'une simulation, certains objets ont besoin d'être
+/**
+ * @fun void motsim_addToResetList(void * data, void (*resetFunc)(void * data))
+ * @brief A la fin d'une simulation, certains objets ont besoin d'être
  * réinitialiser (pour remettre des compteurs à 0 par exemple). Ces
  * objets doivent s'enregistrer auprès du simulateur par la fonction
  * suivante
+ * @param data donnée à ajouter à la liste de rénitialisation
+ * @param resetFunc fonction permettant d'enregistrer data auprès du simulateur
+ * @result data s'est enregistré auprès du simulateur
  */
 void motsim_addToResetList(void * data, void (*resetFunc)(void * data));
 
-/*
- * Réinitialisation pour une nouvelle exécution
+/**
+ * @fun void motSim_reset()
+ * @brief Réinitialisation pour une nouvelle exécution
+ * @result le simulateur est reinitialisé
  */
 void motSim_reset();
 
-/*
- * Insertion d'un evenement initialise
+/**
+ * @fun void motSim_addEvent(struct event_t * event)
+ * @brief Insertion d'un evenement initialise
+ * @param event événement à inserer
+ * @result l'événement est inséré
  */
 void motSim_addEvent(struct event_t * event);
 
-/*
- * Initialisation puis insertion d'un evenement
+/**
+ * @fun void motSim_insertNewEvent(void (*run)(void *data), void * data, motSimDate_t date)
+ * @brief Initialisation puis insertion d'un evenement
+ * @param run fonction permettant d'executer l'événement à la date "date"
+ * @param data donnée à lance à la date indiquée
+ * @param date date de lancement de la donnée
+ * @result l'événement est initialisé et l'événement sera lancé à la date indiquée
  */
 void motSim_insertNewEvent(void (*run)(void *data), void * data, motSimDate_t date);
 
 void motSim_runNevents(int nbEvents);
 
-/* 
- * Obtention de la date courante, exprimée en secondes
+/**
+ * @fun motSimDate_t motSim_getCurrentTime()
+ * @brief Obtention de la date courante, exprimée en secondes
+ * @return retourne la date courante en secondes
  */
 motSimDate_t motSim_getCurrentTime();
 
-/*
- * Lancement d'une simulation d'une durée max de date
+/**
+ * @fun void motSim_runUntil(motSimDate_t date)
+ * @brief Lancement d'une simulation d'une durée max de date
+ * @param date date d'arrêt de la simulation
+ * @result La simulation est lancé jusqu'a la date donnée
  */
 void motSim_runUntil(motSimDate_t date);
 
-/** brief Simulation jusqu'à épuisement des événements
+/**
+ * @fun void motSim_runUntilTheEnd()
+ * @brief Simulation jusqu'à épuisement des événements
+ * @La simulation est faite jusqu'à épuisement des évènements
  */
 void motSim_runUntilTheEnd();
 
-/*
- * Un petit affichage de l'état actuel de la simulation
+/**
+ * @fun void motSim_printStatus()
+ * @brief Un petit affichage de l'état actuel de la simulation
  */
 void motSim_printStatus();
 
-/*
- * Lancement de nbSimu simulations, chacune d'une durée inférieures ou
+/**
+ * @fun void motSim_runNSimu(motSimDate_t  date, int nbSimu)
+ * @brief Lancement de nbSimu simulations, chacune d'une durée inférieures ou
  * égale à date.
+ * @param date tout les évenements simulés doivent être de date antérieure
+ * @param nbSimu le nombre d'ếvénements simulés
+ * @result On simule nbSimu événements de date antérieure à date
  */
 void motSim_runNSimu(motSimDate_t  date, int nbSimu);
 
+/**
+ * @fun void motSim_printCampaignStat()
+ * @brief ..???? Pas défini dans motsim.c
+*/
 void motSim_printCampaignStat();
 
-/*
- * Terminaison "propre"
+/**
+ * @fun void motSim_exit(int retValue)
+ * @brief Terminaison "propre"
+ * @param retValue valeur de sortie
+ * @result le simulateur s'arrete propement
  */
 void motSim_exit(int retValue);
 
