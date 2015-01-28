@@ -1,3 +1,6 @@
+/** @file event.c
+ *  @brief Implantation des événements et de leurs gestions
+ */
 #include <stdio.h>     // printf
 #include <stdlib.h>    // Malloc, NULL, exit...
 #include <assert.h>
@@ -6,7 +9,7 @@
 #include <motsim.h>
 
 /*
- * Une file d'événements libres
+ * @brief Une file d'événements libres
  */
 struct event_t * freeEvent = NULL;
 
@@ -15,6 +18,11 @@ unsigned long event_nbMalloc = 0;
 unsigned long event_nbReuse = 0;
 unsigned long event_nbFree = 0;
 
+/**
+ * @fn struct event_t * event_create(void (*run)(void *data), void * data, motSimDate_t date)
+ * @brief Création d'une file d'événement
+ * @param 
+*/
 struct event_t * event_create(void (*run)(void *data), void * data, motSimDate_t date)
 {
    struct event_t * result;

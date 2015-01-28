@@ -10,7 +10,18 @@
 #define __DEF_EVENT
 
 #include <motsim.h>
-
+/**
+ * @brief Definition de la structure d'un evenement
+ * @param type un entier permettant de definir le type
+ * 0 si périodique
+ * 1 sinon ...
+ * @param period Pour les événements périodiques
+ * @param date Pour les autre type d'évenements
+ * @param data donnée associée à l'événement
+ * @param run La fonction à invoquer lors de l'occurence de l'événement
+ * @param prev événement précédent
+ * @param next événement suivant
+*/
 struct event_t {
    int    type;
    motSimDate_t period;  // Pour les événements périodiques
@@ -106,8 +117,21 @@ void event_periodicAdd(void (*run)(void *data),
 		       motSimDate_t date,
 		       motSimDate_t period);
 
+/**
+ * @fun motSimDate_t event_getDate(struct event_t * event)
+ * @brief permet d'obtenir la date de lancement de l'événement
+ * @param event événement à localiser temporellement
+ * @result on obtient la date d'éxecution de l'évenement
+ * @return retourne la date d'éxcution motSimDate_t
+*/
 motSimDate_t event_getDate(struct event_t * event);
 
+/**
+ * @fun void event_run(struct event_t * event)
+ * @brief permet de lancer l'événement
+ * @param event évenement à lancer
+ * @result l'évenement est lancé
+*/
 void event_run(struct event_t * event);
 
 #endif
