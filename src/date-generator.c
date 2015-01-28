@@ -16,6 +16,11 @@
  * Largement fondé sur les générateurs de nombres aléatoires.
  * Toutes les dates sont toujours exprimées en secondes depuis le début de
  * la simulation.
+ * @param randGen Le generateur aleatoire sur lequel on se fonde.
+ * C'est concrètement lui qui va générer les dates successives.
+ * C'est une structure de type randomGenerator_t
+ * @param interArrivalProbe Une sonde sur les inter arrivees.
+ * Elle permettra par exemple de vérifier qu'on est conforme à ce que l'on souhaite.
  */
 struct dateGenerator_t {
    /** Le generateur aleatoire sur lequel on se fonde. C'est
@@ -32,15 +37,20 @@ struct dateGenerator_t {
 /*-------------------------------------------------------------------------*/
 /*   Les constructeurs                                                     */
 /*-------------------------------------------------------------------------*/
-void dateGenerator_setRandomGenerator(struct dateGenerator_t * dateGen,
-				      struct randomGenerator_t * randGen);
 /**
+ * @fn void dateGenerator_setRandomGenerator(struct gateGenerator_t * dateGen, struct randomGenerator_t * randGen)
  * @brief Creation of a date generator
+ * @param dateGen un generateur de date associé au générateur aléatoire sera crée
+ * @param randGen générateur aléatoire qui servira de base au générateur de date (aléatoire)
  * @result a struct dateGenerator_t * 
  *
  * The created dateGenerator is unusable for now. It needs to be
  * associated to a random generator
- */
+ * @return retourne void
+*/
+void dateGenerator_setRandomGenerator(struct dateGenerator_t * dateGen,
+				      struct randomGenerator_t * randGen);
+
 struct dateGenerator_t * dateGenerator_create()
 {
   struct dateGenerator_t * result = (struct dateGenerator_t * )
@@ -52,8 +62,12 @@ struct dateGenerator_t * dateGenerator_create()
   return result;
 }
 
-/*
- * Création d'une loi avec interarrivé exponentielle
+/**
+ * @fn struct dateGenerator_t * dateGenerator_createExp(double lambda)
+ * @brief Création d'une loi avec interarrivé exponentielle
+ * @param lambda parametre de la loi exponentielle
+ * @result un générateur de date aléatoire de type exponentielle
+ * @retrun retourne un générateur de date
  */
 struct dateGenerator_t * dateGenerator_createExp(double lambda)
 {
@@ -64,8 +78,12 @@ struct dateGenerator_t * dateGenerator_createExp(double lambda)
   return result;
 }
 
-/*
- * Création d'une loi avec interarrivé constante
+/**
+ * @fn struct dateGenerator_t * dateGenerator_createPeriodic(double period)
+ * @brief Création d'une loi avec interarrivé constante
+ * @param period paramétre de la loi périodique
+ * @result un générateur de date aléatoire de type periodique
+ * @retrun retourne un générateur de date
  */
 struct dateGenerator_t * dateGenerator_createPeriodic(double period)
 {
@@ -81,10 +99,13 @@ struct dateGenerator_t * dateGenerator_createPeriodic(double period)
 /*   Les fonctions générales                                               */
 /*-------------------------------------------------------------------------*/
 /**
+ * @fn void dateGenerator_setRandomGenerator(struct dateGenerator_t * dateGen,
+				      struct randomGenerator_t * randGen)
  * @brief Choix du générateur aléatoire des durées entre dates
  *
  * @param dateGen le générateur à modifier
  * @param randGen le générateur de date à affecter
+ * @result le générateur aléatoire est modifié
  */
 void dateGenerator_setRandomGenerator(struct dateGenerator_t * dateGen,
 				      struct randomGenerator_t * randGen)
@@ -93,10 +114,14 @@ void dateGenerator_setRandomGenerator(struct dateGenerator_t * dateGen,
 }
 
 
-/** @brief Obtention de la prochaine date
+/**
+ * @fn  double dateGenerator_nextDate(struct dateGenerator_t * dateGen, double currentTime)
+ * @brief Obtention de la prochaine date
  *
  *  @param dateGen le générateur à utiliser
  *  @param currentTime la date actuelle
+ * @result On obtient la prochaine date du générateur de date aléatoire
+ * @return retourne un double prochaine date
  */
 double dateGenerator_nextDate(struct dateGenerator_t * dateGen, double currentTime)
 {
@@ -112,10 +137,12 @@ double dateGenerator_nextDate(struct dateGenerator_t * dateGen, double currentTi
 }
 
 /**
+ * @fn void dateGenerator_addInterArrivalProbe(struct dateGenerator_t * dateGen, struct probe_t * probe)
  * @brief Insertion d'une sonde sur les inter-arrivees.
  * 
  * @param dateGen le générateur de date sur lequel greffer la sonde
  * @param probe la sonde à y appliquer
+ * @result la sonde est inserée
  */
 void dateGenerator_addInterArrivalProbe(struct dateGenerator_t * dateGen, struct probe_t * probe)
 {
@@ -148,16 +175,23 @@ double loi_expo(struct dateGenerator_t * dateGen, double currentTime)
 }
 */
 
-/*
- * Modification du paramètre lambda
+/**
+ * @fn void dateGenerator_setLambda(struct dateGenerator_t * dateGen, double lambda)
+ * @brief Modification du paramètre lambda
+ * @param dateGen le générateur de date dont on doit modifier le paramètre lambda
+ * @param lambda le nouveau paramètre lambda à définir
+ * @result le paramètre lambda est modifié
  */
 void dateGenerator_setLambda(struct dateGenerator_t * dateGen, double lambda)
 {
    randomGenerator_setLambda(dateGen->randGen, lambda);
 }
 
-/*
- * Prepare for record values in order to replay on each reset
+/**
+ * @fn void dateGenerator_recordThenReplay(struct dateGenerator_t *  d)
+ * @brief Prepare for record values in order to replay on each reset
+ * @param d le générateur de date dont on doit enregistrer est rejouer les actions
+ * @result le générateur de date est enregistré
  */
 void dateGenerator_recordThenReplay(struct dateGenerator_t *  d){
   randomGenerator_recordThenReplay(d->randGen);
